@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TagBot — Аналитика хештегов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="logo">#</div>
+        <div class="brand-text">
+          <h1>TagBot</h1>
+          <span class="brand-subtitle">Аналитика хештегов канала</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="live-badge" aria-hidden="true">
+          <span class="live-dot"></span>
+          Онлайн
+        </div>
+        <div class="theme-toggle" role="group" aria-label="Выбор темы">
+          <button type="button" class="theme-btn" data-theme="light" aria-label="Светлая">Светлая</button>
+          <button type="button" class="theme-btn" data-theme="dark" aria-label="Тёмная">Тёмная</button>
+          <button type="button" class="theme-btn" data-theme="auto" aria-label="Система">Авто</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="metrics">
+        <div class="metric-card">
+          <div class="metric-value" id="totalTags">0</div>
+          <div class="metric-label">Использований тегов</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" id="uniqueTags">0</div>
+          <div class="metric-label">Уникальных тегов</div>
+        </div>
+        <div class="metric-card metric-card-primary">
+          <div class="metric-value metric-value-accent" id="topTag">—</div>
+          <div class="metric-label">Самый популярный</div>
+        </div>
+      </section>
+
+      <section class="data-section">
+        <div class="section-header">
+          <h2>Хештеги</h2>
+          <div class="section-controls">
+            <div class="search-wrap">
+              <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
+              <input type="text" class="search-input" id="tagSearch" placeholder="Поиск..." autocomplete="off">
+            </div>
+            <div class="sort-btns">
+              <button type="button" class="sort-btn active" data-sort="popular">По популярности</button>
+              <button type="button" class="sort-btn" data-sort="rare">По редкости</button>
+              <button type="button" class="sort-btn" data-sort="name">По названию</button>
+            </div>
+            <div class="page-size-wrap">
+              <label for="pageSize">На странице:</label>
+              <select id="pageSize" class="page-size-select">
+                <option value="20">20</option>
+                <option value="50" selected>50</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="col-rank">#</th>
+                <th class="col-tag">Хештег</th>
+                <th class="col-count">Использований</th>
+                <th class="col-share">Доля</th>
+                <th class="col-freq">В день</th>
+                <th class="col-last">Последнее</th>
+                <th class="col-link"></th>
+              </tr>
+            </thead>
+            <tbody id="tagsList">
+              <tr class="empty-row" id="emptyState">
+                <td colspan="7">Нет данных. Отправьте сообщения с хештегами в канал.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination-wrap" id="paginationWrap">
+          <div class="pagination-info" id="paginationInfo"></div>
+          <div class="pagination-btns">
+            <button type="button" class="pagination-btn" id="pagePrev" disabled>←</button>
+            <span class="pagination-pages" id="paginationPages"></span>
+            <button type="button" class="pagination-btn" id="pageNext" disabled>→</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>TagBot</span>
+      <span class="footer-sep">·</span>
+      <span>Обновление в реальном времени</span>
+    </footer>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

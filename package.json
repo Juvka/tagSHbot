@@ -1,0 +1,23 @@
+{
+  "name": "tagbot",
+  "version": "1.0.0",
+  "description": "Telegram bot for counting hashtags on a channel with real-time web statistics",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:stop": "pm2 stop tagbot",
+    "pm2:restart": "pm2 restart tagbot",
+    "pm2:logs": "pm2 logs tagbot"
+  },
+  "keywords": ["telegram", "bot", "hashtag", "statistics"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "telegraf": "^4.16.3",
+    "express": "^4.21.0",
+    "socket.io": "^4.7.4"
+  }
+}
